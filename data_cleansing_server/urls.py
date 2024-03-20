@@ -26,4 +26,4 @@ urlpatterns: list[URLPattern|URLResolver] = [
     path('datatype/', include('datatype.urls')),
 ]
 
-urlpatterns += static(settings.CSV_UPLOAD_URL,document_root=settings.CSV_UPLOAD_ROOT)
+urlpatterns += static(settings.FILE_UPLOAD_URL,document_root=settings.FILE_UPLOAD_ROOT)
