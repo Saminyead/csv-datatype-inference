@@ -15,8 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path, include
+from django.urls.resolvers import URLResolver, URLPattern
+# from .settings import CSV_UPLOAD_ROOT, CSV_UPLOAD_URL
 
-urlpatterns = [
+urlpatterns: list[URLPattern|URLResolver] = [
     path('admin/', admin.site.urls),
+    path('datatype/', include('datatype.urls')),
 ]
+
+urlpatterns += static(settings.CSV_UPLOAD_URL,document_root=settings.CSV_UPLOAD_ROOT)
