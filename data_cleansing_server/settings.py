@@ -14,7 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR: Path = Path(__file__).resolve().parent.parent
-ENV_FILE:Path = Path(f"{BASE_DIR}/data_cleansing_server")
+ENV_FILE_PATH:Path = BASE_DIR/'.env'
 FILE_UPLOAD_ROOT:Path = BASE_DIR/'upload'
 
 
