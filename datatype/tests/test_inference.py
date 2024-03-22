@@ -8,7 +8,6 @@ from datatype.utils.inference import (
 
 SAMPLE_DATA_PATH = "sample_data.csv"
 
-# TODO: create a fixture - a dataframe from a CSV file
 @pytest.fixture
 def df_test(filename:str=SAMPLE_DATA_PATH) -> pd.DataFrame:
     """Test Dataframe fixture"""
