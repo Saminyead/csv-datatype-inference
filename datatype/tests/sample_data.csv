@@ -1,0 +1,9 @@
+Name,Birthdate,Score,Grade,Remarks,Test_None_Numeric,Test_None_Datetime,Test_All_Int
+Alice,1/01/1990,90,A,Consistent,,,20
+Bob,2/02/1991,75,B,Slight falling,,03/12/1962,2
+Charlie,3/03/1992,85,A,Consistent,,04/13/2012,0
+David,4/04/1993,70,B,Slight rising,1,,100
+Eve,5/05/1994,Not Available,A,0,2,,2032
+Rose,"March 02, 1995",72,B,Slight falling,,,1
+Emily,,80,B,Consistent,,,9
+Robbie,03-10-1996,82,B,,,,155
