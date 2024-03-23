@@ -19,7 +19,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 from django.urls.resolvers import URLResolver, URLPattern
-# from .settings import CSV_UPLOAD_ROOT, CSV_UPLOAD_URL
 
 DATATYPE_ENDPOINT:str = 'datatype/'
 
@@ -28,4 +27,4 @@ urlpatterns: list[URLPattern|URLResolver] = [
     path(DATATYPE_ENDPOINT, include('datatype.urls')),
 ]
 
-urlpatterns += static(settings.FILE_UPLOAD_URL,document_root=settings.FILE_UPLOAD_ROOT)
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
