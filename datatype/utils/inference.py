@@ -40,7 +40,6 @@ def _convert_to_datetime(col:pd.Series) -> pd.Series:
     col = pd.to_datetime(col)
     return col
 
-
 def infer_datetime(df:pd.DataFrame) -> pd.DataFrame:
     """
     Goes through each column of dataframe to check if it contains datetime 
