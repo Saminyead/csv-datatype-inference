@@ -31,7 +31,7 @@ def test_api_data_file_format(
 ) -> None:
     response:Response = api_client.post(
         path=api_endpoint,
-        data={'file':f'{filename}'},
+        data={'file':open(filename)},
         format='multipart'
     )
 
@@ -43,7 +43,7 @@ def test_api_data_file_format(
         'Test_All_Int':'int64',
     }
 
-    assert response.status_code == 200
+    assert response.status_code == 201
     
     for value in expected_values:
         assert value in response.data
