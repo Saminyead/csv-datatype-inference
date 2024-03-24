@@ -12,11 +12,14 @@ from .serializers import FileUploadSerializer
 from .utils.infer_all import infer_all
 
 
-def _check_csv(file:UploadedFile) -> bool:
+# not yet implemented
+def _check_csv(file:UploadedFile) -> bool|Response:
     """Check if uploaded file is CSV"""
     file_name_split:list[str] = file.name.split('.')
     if file_name_split[-1] == 'csv':
         return True
+    else:
+        return False
 
 
 @api_view(['POST'])
@@ -30,9 +33,14 @@ def csv_file_upload(
         
         if serializer.is_valid():
             file:UploadedFile = serializer.validated_data['file']
+            
+            if not _check_csv(file):
+                return Response(
+                    f"The uploaded file {file} is not a CSV file",
+                    status.HTTP_400_BAD_REQUEST
+                )
 
-
-            data_types = infer_all(file.name)
+            data_types = infer_all(file)
 
             uploaded_file = UploadedCSVFile.objects.create(
                 file=file,
