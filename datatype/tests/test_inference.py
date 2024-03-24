@@ -5,6 +5,7 @@ import numpy
 from datatype.utils.inference import (
     infer_numeric, infer_datetime
 )
+from datatype.utils.infer_all import infer_all
 
 SAMPLE_DATA_PATH = "sample_data.csv"
 
@@ -41,3 +42,20 @@ def test_infer_datetime_no_change_to_non_dt_formats(
     assert df_test_inferred['Test_None_Numeric'].dtype != 'datetime64[ns]'
     assert df_test_inferred['Test_All_Int'].dtype != 'datetime64[ns]'
     assert df_test_inferred['Score'].dtype != 'datetime64[ns]'
+
+
+def test_infer_all_inferred(
+        csv_file:str = SAMPLE_DATA_PATH
+) -> None:
+    df_test_column_dtypes = infer_all(csv_file)
+
+    assert df_test_column_dtypes['inferred']['Name'] == 'object'
+    assert df_test_column_dtypes['inferred']['Grade'] == 'object'
+    assert df_test_column_dtypes['inferred']['Remarks'] == 'object'
+    assert df_test_column_dtypes['inferred']['Score'] == 'float64'
+    assert df_test_column_dtypes['inferred']['Test_None_Numeric'] == 'float64'
+    assert df_test_column_dtypes['inferred'][
+        'Test_None_Datetime'] == 'datetime64[ns]'
+    assert df_test_column_dtypes['inferred']['Birthdate'] == 'datetime64[ns]'
+
+
