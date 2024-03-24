@@ -4,35 +4,14 @@ import os
 
 
 # Create your views here.
-from django.http import HttpRequest,JsonResponse
-import pydantic
-
-from rest_framework import response, request
+from rest_framework import request
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
 from .models import UploadedFile
 from .serializers import FileUploadSerializer
-
-from django.core.exceptions import SuspiciousFileOperation
-
-class UserModel(pydantic.BaseModel):
-    id: int
-    name: str
-    email: str
-
-
-def view_user_detail(request:HttpRequest,user_id:int=500) -> JsonResponse:
-    test_user:UserModel = UserModel(
-        id=user_id,
-        name="Shakira",
-        email="hipsdontlie@example.com"
-    )
-
-    json_response: str = test_user.model_dump_json()
-
-    return JsonResponse(json_response,safe=False)
+from .utils.infer_all import infer_all
 
 
 @api_view(['POST'])
@@ -43,16 +22,23 @@ def csv_file_upload(
 ) -> Response | None:
     if request.method=='POST':
         serializer = FileUploadSerializer(data=request.data)
+        
         if serializer.is_valid():
             file = serializer.validated_data['file']
+            data_types = infer_all(file)
+
             uploaded_file = UploadedFile.objects.create(
                 file=file,
+                original_data_types=data_types['original'],
+                inferred_data_types=data_types['inferred']
             )
 
             response_data = {
                 'metadata': {
                     'file_name': uploaded_file.file.name,
-                    'uploaded_on': uploaded_file.uploaded_on
+                    'uploaded_on': uploaded_file.uploaded_on,
+                    'original_data_types':uploaded_file.original_data_types,
+                    'inferred_data_types':uploaded_file.inferred_data_types
                 },
 
             }
