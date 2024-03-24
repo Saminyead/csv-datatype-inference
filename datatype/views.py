@@ -1,7 +1,5 @@
 from django.shortcuts import render
-
-import os
-
+from django.core.files.uploadedfile import UploadedFile
 
 # Create your views here.
 from rest_framework import request
@@ -9,9 +7,16 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import UploadedFile
+from .models import UploadedCSVFile
 from .serializers import FileUploadSerializer
 from .utils.infer_all import infer_all
+
+
+def _check_csv(file:UploadedFile) -> bool:
+    """Check if uploaded file is CSV"""
+    file_name_split:list[str] = file.name.split('.')
+    if file_name_split[-1] == 'csv':
+        return True
 
 
 @api_view(['POST'])
@@ -24,10 +29,12 @@ def csv_file_upload(
         serializer = FileUploadSerializer(data=request.data)
         
         if serializer.is_valid():
-            file = serializer.validated_data['file']
-            data_types = infer_all(file)
+            file:UploadedFile = serializer.validated_data['file']
 
-            uploaded_file = UploadedFile.objects.create(
+
+            data_types = infer_all(file.name)
+
+            uploaded_file = UploadedCSVFile.objects.create(
                 file=file,
                 original_data_types=data_types['original'],
                 inferred_data_types=data_types['inferred']
