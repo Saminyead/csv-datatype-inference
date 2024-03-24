@@ -11,4 +11,4 @@ def api_client() -> APIClient:
 
 @pytest.fixture
 def api_endpoint() -> str:
-    return f"{DATATYPE_ENDPOINT}{INFER_ENDPOINT}"
+    return f"/{DATATYPE_ENDPOINT}{INFER_ENDPOINT}"
