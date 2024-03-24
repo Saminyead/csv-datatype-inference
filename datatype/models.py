@@ -5,7 +5,7 @@ from .utils.inference import (
 )
 
 # Create your models here.
-class UploadedFile(models.Model):
+class UploadedCSVFile(models.Model):
     file = models.FileField()
     uploaded_on = models.DateTimeField(auto_now_add=True)
     original_data_types = models.JSONField(null=True,blank=True)
