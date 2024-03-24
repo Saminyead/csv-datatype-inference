@@ -11,6 +11,8 @@ from rest_framework import response, request
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+
+from .models import UploadedFile
 from .serializers import FileUploadSerializer
 
 from django.core.exceptions import SuspiciousFileOperation
@@ -42,11 +44,17 @@ def csv_file_upload(
     if request.method=='POST':
         serializer = FileUploadSerializer(data=request.data)
         if serializer.is_valid():
-            uploaded_file = serializer.save()
+            file = serializer.validated_data['file']
+            uploaded_file = UploadedFile.objects.create(
+                file=file,
+            )
 
             response_data = {
-                'file_name': uploaded_file.file.name,
-                'uploaded_on': uploaded_file.uploaded_on
+                'metadata': {
+                    'file_name': uploaded_file.file.name,
+                    'uploaded_on': uploaded_file.uploaded_on
+                },
+
             }
 
 
