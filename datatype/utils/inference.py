@@ -73,6 +73,9 @@ class DataFrameToInfer(pd.DataFrame):
     
 
     def infer_category(self) -> "DataFrameToInfer":
+        """Finds which column of the dataframes are of type 'category'. 
+        If the number of unique entries in the column is less than 50%, 
+        the column is inferred as 'category'"""
         df = self.copy()
         for col in df.columns:
             if df[col].dtypes!='object':
