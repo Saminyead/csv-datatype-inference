@@ -52,10 +52,9 @@ def csv_file_upload(
                 'metadata': {
                     'file_name': uploaded_file.file.name,
                     'uploaded_on': uploaded_file.uploaded_on,
-                    'original_data_types':uploaded_file.original_data_types,
-                    'inferred_data_types':uploaded_file.inferred_data_types
                 },
-
+                'original_data_types':uploaded_file.original_data_types,
+                'inferred_data_types':uploaded_file.inferred_data_types
             }
 
 
