@@ -13,12 +13,6 @@ class DataFrameToInfer(pd.DataFrame):
         """Finds which column of the dataframe are of a numeric type. 
         The criteria for the column to be numeric is - it has
         to have at least 80% of the entries as numeric.
-
-        Args:
-            df (pd.DataFrame): dataframe whose column's data type is to be inferred
-
-        Returns:
-            pd.DataFrame: the dataframe with the correct data column data type
         """
         # to prevent changing the original dataframe
         df: pd.DataFrame = self.copy()
@@ -52,14 +46,6 @@ class DataFrameToInfer(pd.DataFrame):
         Goes through each column of dataframe to check if it contains datetime 
         values. If it does, then converts the column to datetime format 
         ('yyyy-mm-dd'), and coverts the column data type to datetime[ns64]
-        
-        Args:
-            df (pandas.DataFrame): The dataframe whose columns are to be 
-                converted.
-            
-        Returns:
-            pandas.DataFrame: The converted column with datetime format 
-                ('yyyy-mm-dd').
         """
         df = self.copy()
         for col in df.columns:
