@@ -20,13 +20,16 @@ class DataFrameToInfer(pd.DataFrame):
         Returns:
             pd.DataFrame: the dataframe with the correct data column data type
         """
-        df: pd.DataFrame = self.copy()      # to prevent changing the original dataframe
+        # to prevent changing the original dataframe
+        df: pd.DataFrame = self.copy()
         len_df: int = len(df)
 
         for col in df.columns:
             df_converted:pd.Series = pd.to_numeric(df[col], errors='coerce')
             len_df_converted_none: int = len(df_converted[df_converted.isna()])
 
+            # checking whether the number of nan rows are less than 20% 
+            # (thus >80% non-nan rows)
             if len_df_converted_none <= 0.2 * len_df:
                 df[col] = df_converted
 
@@ -66,6 +69,18 @@ class DataFrameToInfer(pd.DataFrame):
                 df[col] = self._convert_to_datetime(df[col])
             except (parser.ParserError, TypeError):
                 continue
+        return DataFrameToInfer(df)
+    
+
+    def infer_category(self) -> "DataFrameToInfer":
+        df = self.copy()
+        for col in df.columns:
+            if df[col].dtypes!='object':
+                continue
+
+            if df[col].nunique()/len(df[col]) < 0.5:
+                df[col] = df[col].astype('category')
+
         return DataFrameToInfer(df)
 
 
