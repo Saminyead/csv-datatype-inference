@@ -48,6 +48,7 @@ def test_infer_datetime_no_change_to_non_dt_formats(
 def test_infer_category_on_grades_col(
         df_test:pd.DataFrame
 ) -> None:
+    """Test case to check if categorical data is inferred properly"""
     df_to_infer_test: DataFrameToInfer = DataFrameToInfer(df_test)
     df_test_inferred: DataFrameToInfer = df_to_infer_test.infer_category()
     assert df_test_inferred['Grade'].dtype == 'category'
@@ -56,6 +57,8 @@ def test_infer_category_on_grades_col(
 def test_infer_all_inferred(
         csv_file:str = SAMPLE_DATA_PATH
 ) -> None:
+    """Test to check if infer_all correctly infers the data types of all 
+    column"""
     df_test_column_dtypes = infer_all(csv_file)
 
     assert df_test_column_dtypes['inferred']['Name'] == 'object'
@@ -69,3 +72,4 @@ def test_infer_all_inferred(
     assert df_test_column_dtypes['inferred']['Test_None_Datetime'] == 'datetime64[ns]'
 
 
+# def test_infer_method_order_does_not_matter()
