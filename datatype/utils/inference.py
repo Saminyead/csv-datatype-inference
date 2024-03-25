@@ -4,6 +4,26 @@ from dateutil import parser
 
 
 # TODO: implement a class-based approach
+class DataFrameToInfer(pd.DataFrame):
+    """Class inheriting from DataFrame, so that infer methods can be
+    directly applied to a DataFrame, and can be chained"""
+
+
+    def infer_numeric(self) -> "DataFrameToInfer":
+        df = self.copy()      # to prevent changing the original dataframe
+        len_df: int = len(df)
+
+        for col in df.columns:
+            df_converted:pd.Series = pd.to_numeric(df[col], errors='coerce')
+            len_df_converted_none: int = len(df_converted[df_converted.isna()])
+
+            if len_df_converted_none <= 0.2 * len_df:
+                df[col] = df_converted
+
+        return DataFrameToInfer(df)
+
+    def infer_datetime(self):
+        pass
 
 def infer_numeric(df:pd.DataFrame) -> pd.DataFrame:
     """Finds which column of the dataframe are of a numeric type. 
