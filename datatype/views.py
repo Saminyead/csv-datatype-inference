@@ -48,14 +48,7 @@ def csv_file_upload(
                 inferred_data_types=data_types['inferred']
             )
 
-            response_data = {
-                'metadata': {
-                    'file_name': uploaded_file.file.name,
-                    'uploaded_on': uploaded_file.uploaded_on,
-                },
-                'original_data_types':uploaded_file.original_data_types,
-                'inferred_data_types':uploaded_file.inferred_data_types
-            }
+            response_data = uploaded_file.arrange_for_response()
 
 
             return Response(response_data,status=status.HTTP_201_CREATED)

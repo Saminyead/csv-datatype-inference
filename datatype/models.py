@@ -6,3 +6,14 @@ class UploadedCSVFile(models.Model):
     uploaded_on = models.DateTimeField(auto_now_add=True)
     original_data_types = models.JSONField(null=True,blank=True)
     inferred_data_types = models.JSONField(null=True,blank=True)
+
+
+    def arrange_for_response(self):
+        return {
+            'metadata': {
+                'file_name': self.file.name,
+                'uploaded_on': self.uploaded_on,
+            },
+            'original_data_types':self.original_data_types,
+            'inferred_data_types':self.inferred_data_types
+        }
