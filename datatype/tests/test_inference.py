@@ -2,9 +2,7 @@ import pytest
 import pandas as pd
 import numpy
 
-from datatype.utils.inference import (
-    infer_numeric, infer_datetime, DataFrameToInfer
-)
+from datatype.utils.inference import DataFrameToInfer
 from datatype.utils.infer_all import infer_all
 
 SAMPLE_DATA_PATH = "sample_data.csv"
