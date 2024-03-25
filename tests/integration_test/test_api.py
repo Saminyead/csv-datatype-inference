@@ -36,7 +36,7 @@ def test_api_data_file_format(
     )
 
     expected_values:dict= {
-        'Birthday':'datetime64[ns]',
+        'Birthdate':'datetime64[ns]',
         'Test_None_Datetime':'datetime64[ns]',
         'Score':'float64',
         'Test_None_Numeric':'float64',
@@ -46,6 +46,6 @@ def test_api_data_file_format(
     assert response.status_code == 201
     
     for value in expected_values:
-        assert value in response.data
+        assert value in response.data['inferred_data_types']
 
     
