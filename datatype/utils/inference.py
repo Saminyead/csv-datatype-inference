@@ -72,14 +72,16 @@ class DataFrameToInfer(pd.DataFrame):
                 df[col] = df[col].astype('category')
 
         return DataFrameToInfer(df)
-    
-    def infer_bool(self) -> "DataFrameToInfer":
+
+
+    def infer_bool(self):
         df = self.copy()
         for col in df.columns:
+            if len(df[col][pd.isna(df[col])]) > 0:
+                continue
             try:
-                # checked against Claude
                 bool_vals = df[col].dropna().apply(
-                    lambda x: isinstance(x,bool) or str(x).lower()\
+                    lambda x: isinstance(x,(bool,np.bool_)) or str(x).lower()\
                     in ['true','false','1','0']
                 )
 
@@ -88,18 +90,18 @@ class DataFrameToInfer(pd.DataFrame):
 
             if bool_vals.all():
                 df[col] = df[col].replace(
-                    ['True', 'true', 'TRUE', 1], True, inplace=False
+                    ['True', 'true', 'TRUE', '1',1], True, inplace=False
                 )
                 df[col] = df[col].replace(
-                    ['False', 'false', 'FALSE', 0], False, inplace=False
+                    ['False', 'false', 'FALSE', '0',0], False, inplace=False
                 )
 
-                # to be checked against Claude
                 df[col] = df[col].apply(
-                    lambda x: True if x==True else False if x==False else np.nan
+                    lambda x: True if str(x).lower() == 'true' else\
+                        False if str(x).lower() == 'false' else np.nan
                 )
 
-        return DataFrameToInfer(df)
+        return df
 
 
 
