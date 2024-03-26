@@ -2,6 +2,7 @@ import pandas as pd
 
 from dateutil import parser
 
+import numpy as np
 
 # TODO: implement a class-based approach
 class DataFrameToInfer(pd.DataFrame):
@@ -69,6 +70,34 @@ class DataFrameToInfer(pd.DataFrame):
 
             if df[col].nunique()/len(df[col]) < 0.5:
                 df[col] = df[col].astype('category')
+
+        return DataFrameToInfer(df)
+    
+    def infer_bool(self) -> "DataFrameToInfer":
+        df = self.copy()
+        for col in df.columns:
+            try:
+                # checked against Claude
+                bool_vals = df[col].dropna().apply(
+                    lambda x: isinstance(x,bool) or str(x).lower()\
+                    in ['true','false','1','0']
+                )
+
+            except (ValueError,TypeError):
+                continue
+
+            if bool_vals.all():
+                df[col] = df[col].replace(
+                    ['True', 'true', 'TRUE', 1], True, inplace=False
+                )
+                df[col] = df[col].replace(
+                    ['False', 'false', 'FALSE', 0], False, inplace=False
+                )
+
+                # to be checked against Claude
+                df[col] = df[col].apply(
+                    lambda x: True if x==True else False if x==False else np.nan
+                )
 
         return DataFrameToInfer(df)
 
