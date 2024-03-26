@@ -21,7 +21,6 @@ def test_infer_numeric_80_pct_col_is_numeric(df_test:DataFrameToInfer) -> None:
     assert df_test_inferred['Score'].dtype == numpy.dtype('float')
 
 
-
 def test_infer_datetime_varied_dt_formats(
         df_test:DataFrameToInfer
 ) -> None:
@@ -52,6 +51,17 @@ def test_infer_category_on_grades_col(
     df_to_infer_test: DataFrameToInfer = DataFrameToInfer(df_test)
     df_test_inferred: DataFrameToInfer = df_to_infer_test.infer_category()
     assert df_test_inferred['Grade'].dtype == 'category'
+
+
+def test_infer_bool(
+        df_test:pd.DataFrame
+) -> None:
+    """Test case to check if boolean data is inferred properly"""
+    df_to_infer_test = DataFrameToInfer(df_test)
+    df_test_inferred = df_to_infer_test.infer_bool()
+    assert df_test_inferred['Test_All_Bool'].dtype == 'bool'
+
+
 
 
 def test_infer_all_inferred(
