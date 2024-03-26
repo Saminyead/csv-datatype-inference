@@ -73,13 +73,14 @@ def test_infer_all_inferred(
 
     assert df_test_column_dtypes['inferred']['Name'] == 'object'
     assert df_test_column_dtypes['inferred']['Grade'] == 'category'
-    assert df_test_column_dtypes['inferred']['Remarks'] == 'object'
+    assert df_test_column_dtypes['inferred']['Remarks'] == 'category'
     assert df_test_column_dtypes['inferred']['Score'] == 'float64'
     assert df_test_column_dtypes['inferred']['Test_None_Numeric'] == 'float64'
     assert df_test_column_dtypes['inferred'][
         'Test_None_Datetime'] == 'datetime64[ns]'
     assert df_test_column_dtypes['inferred']['Birthdate'] == 'datetime64[ns]'
     assert df_test_column_dtypes['inferred']['Test_None_Datetime'] == 'datetime64[ns]'
+    assert df_test_column_dtypes['inferred']['Test_All_Bool'] == 'bool'
 
 
 # def test_infer_method_order_does_not_matter()
