@@ -4,10 +4,9 @@ Bob,2/02/1991,75,B,Slight falling,,03/12/1962,2,true
 Charlie,3/03/1992,85,A,Consistent,,04/13/2012,0,false
 David,4/04/1993,70,B,Slight improvement,1,,100,1
 Eve,5/05/1994,Not Available,A,0,2,,2032,0
-Rose,"March 02, 1995",72,B,Slight falling,,,1,
+Rose,"March 02, 1995",72,B,Slight falling,,,1,0
 Emily,,80,B,Consistent,,,9,1
 Robbie,03-10-1996,82,B,,,,155,False
-Aysha,"12th April, 2001",69,C,Slight falling,,,30,
+Aysha,"12th April, 2001",69,C,Slight falling,,,30,1
 Suleiman,,72,B,Slight improvement,,,8,FALSE
 Benedict,"August 15, 1999",95,A,Great improvement,,,1,TRUE
-Maryam,05/15/1997,90,A,Consistent,,,105523,Not Available
