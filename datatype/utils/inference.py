@@ -80,8 +80,8 @@ class DataFrameToInfer(pd.DataFrame):
             if len(df[col][pd.isna(df[col])]) > 0:
                 continue
             try:
-                bool_vals = df[col].dropna().apply(
-                    lambda x: isinstance(x,(bool,np.bool_)) or str(x).lower()\
+                bool_vals = df[col].apply(
+                    lambda x: isinstance(x,bool) or str(x).lower()\
                     in ['true','false','1','0']
                 )
 
@@ -98,7 +98,7 @@ class DataFrameToInfer(pd.DataFrame):
 
                 df[col] = df[col].apply(
                     lambda x: True if str(x).lower() == 'true' else\
-                        False if str(x).lower() == 'false' else np.nan
+                        False if str(x).lower() == 'false' else x
                 )
 
         return df
