@@ -74,7 +74,24 @@ class DataFrameToInfer(pd.DataFrame):
         return DataFrameToInfer(df)
 
 
-    def infer_bool(self):
+    def _convert_str_to_bool_values(self,col:pd.Series) -> pd.Series:
+        """Helper method to be used in infer_bool to turn 'true'/'True'/'TRUE'
+        .... these kinds of strings to actual boolean values"""
+        col = col.replace(
+                    ['True', 'true', 'TRUE', '1',1], True, inplace=False
+                )
+        col = col.replace(
+            ['False', 'false', 'FALSE', '0',0], False, inplace=False
+        )
+
+        col = col.apply(
+            lambda x: True if str(x).lower() == 'true' else\
+                False if str(x).lower() == 'false' else x
+        )
+        return col
+    
+    
+    def infer_bool(self) -> "DataFrameToInfer":
         df = self.copy()
         for col in df.columns:
             if len(df[col][pd.isna(df[col])]) > 0:
@@ -89,19 +106,9 @@ class DataFrameToInfer(pd.DataFrame):
                 continue
 
             if bool_vals.all():
-                df[col] = df[col].replace(
-                    ['True', 'true', 'TRUE', '1',1], True, inplace=False
-                )
-                df[col] = df[col].replace(
-                    ['False', 'false', 'FALSE', '0',0], False, inplace=False
-                )
+                df[col] = self._convert_str_to_bool_values(df[col])
 
-                df[col] = df[col].apply(
-                    lambda x: True if str(x).lower() == 'true' else\
-                        False if str(x).lower() == 'false' else x
-                )
-
-        return df
+        return DataFrameToInfer(df)
 
 
 
