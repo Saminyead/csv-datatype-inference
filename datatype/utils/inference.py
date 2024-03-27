@@ -91,16 +91,27 @@ class DataFrameToInfer(pd.DataFrame):
         return col
     
     
+    def _check_contains_bool_str(self,col:pd.Series) -> pd.Series:
+        """Helper method for infer_bool to check if all entries in column
+        are strings or numbers indicating boolean values (e.g. 'true'/'TRUE',
+        'false'/'FALSE',1,0 etc.)"""
+        col = col.apply(
+            lambda x: isinstance(x,bool) or str(x).lower()\
+            in ['true','false','1','0']
+        )
+        return col
+    
+    
     def infer_bool(self) -> "DataFrameToInfer":
+        """Finds which column contain boolean-like values. At present,
+        boolean columns does not support missing values in Pandas, so
+        the method only works on columns with no missing values."""
         df = self.copy()
         for col in df.columns:
             if len(df[col][pd.isna(df[col])]) > 0:
                 continue
             try:
-                bool_vals = df[col].apply(
-                    lambda x: isinstance(x,bool) or str(x).lower()\
-                    in ['true','false','1','0']
-                )
+                bool_vals = self._check_contains_bool_str(df[col])
 
             except (ValueError,TypeError):
                 continue
