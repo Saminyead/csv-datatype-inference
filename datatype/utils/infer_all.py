@@ -8,7 +8,7 @@ def infer_all(csv_file:str) -> dict[str,dict[str,str]]:
     df_to_be_inferred = DataFrameToInfer(df)
 
     df_inferred = df_to_be_inferred.infer_numeric().\
-        infer_datetime().infer_category()
+        infer_datetime().infer_category().infer_bool()
 
     # applying formatting so that it prints dtype
     original_data_types = df.dtypes.apply(lambda x:x.name).to_dict()
