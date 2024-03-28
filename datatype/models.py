@@ -17,11 +17,11 @@ class UploadedCSVFile(models.Model):
                 'uploaded_on': self.uploaded_on,
             },
             'original_data': {
-                'original_data_json':[],
+                'original_data_json': self.original_data_json,
                 'original_data_types': self.original_data_types
             },
             'inferred_data': {
-                'inferred_data_json': [],
+                'inferred_data_json': self.inferred_data_json,
                 'inferred_data_types':self.inferred_data_types
             }
         }
