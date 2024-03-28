@@ -14,6 +14,12 @@ class UploadedCSVFile(models.Model):
                 'file_name': self.file.name,
                 'uploaded_on': self.uploaded_on,
             },
-            'original_data_types':self.original_data_types,
-            'inferred_data_types':self.inferred_data_types
+            'original_data': {
+                'original_data_json':[],
+                'original_data_types': self.original_data_types
+            },
+            'inferred_data': {
+                'inferred_data_json': [],
+                'inferred_data_types':self.inferred_data_types
+            }
         }
