@@ -71,16 +71,16 @@ def test_infer_all_inferred(
     column"""
     df_test_column_dtypes = infer_all(csv_file)
 
-    assert df_test_column_dtypes['inferred']['Name'] == 'object'
-    assert df_test_column_dtypes['inferred']['Grade'] == 'category'
-    assert df_test_column_dtypes['inferred']['Remarks'] == 'category'
-    assert df_test_column_dtypes['inferred']['Score'] == 'float64'
-    assert df_test_column_dtypes['inferred']['Test_None_Numeric'] == 'float64'
-    assert df_test_column_dtypes['inferred'][
+    assert df_test_column_dtypes['inferred_data_types']['Name'] == 'object'
+    assert df_test_column_dtypes['inferred_data_types']['Grade'] == 'category'
+    assert df_test_column_dtypes['inferred_data_types']['Remarks'] == 'category'
+    assert df_test_column_dtypes['inferred_data_types']['Score'] == 'float64'
+    assert df_test_column_dtypes['inferred_data_types']['Test_None_Numeric'] == 'float64'
+    assert df_test_column_dtypes['inferred_data_types'][
         'Test_None_Datetime'] == 'datetime64[ns]'
-    assert df_test_column_dtypes['inferred']['Birthdate'] == 'datetime64[ns]'
-    assert df_test_column_dtypes['inferred']['Test_None_Datetime'] == 'datetime64[ns]'
-    assert df_test_column_dtypes['inferred']['Test_All_Bool'] == 'bool'
+    assert df_test_column_dtypes['inferred_data_types']['Birthdate'] == 'datetime64[ns]'
+    assert df_test_column_dtypes['inferred_data_types']['Test_None_Datetime'] == 'datetime64[ns]'
+    assert df_test_column_dtypes['inferred_data_types']['Test_All_Bool'] == 'bool'
 
 
 # def test_infer_method_order_does_not_matter()
