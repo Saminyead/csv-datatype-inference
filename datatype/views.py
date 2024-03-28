@@ -47,8 +47,10 @@ def csv_file_upload(
             file=file,
             original_data_json=data_types['original_data_json'],
             original_data_types=data_types['original_data_types'],
+            original_data_types_readable=data_types['original_data_types_readable'],
             inferred_data_json=data_types['inferred_data_json'],
             inferred_data_types=data_types['inferred_data_types'],
+            inferred_data_types_readable=data_types['inferred_data_types_readable'],
         )
 
         response_data = uploaded_file.arrange_for_response()
