@@ -16,8 +16,8 @@ def infer_all(csv_file:str) -> dict[str,Any]:
     inferred_data_types = df_inferred.dtypes.apply(lambda x: x.name).to_dict()
 
     return {
-        "original_data_json": df.to_json(orient='records'),
+        "original_data_json": df.to_json(date_format='iso'),
         "original_data_types": original_data_types,
-        "inferred_data_json": df_inferred.to_json(orient='records'),
+        "inferred_data_json": df_inferred.to_json(date_format='iso'),
         "inferred_data_types": inferred_data_types
     }
