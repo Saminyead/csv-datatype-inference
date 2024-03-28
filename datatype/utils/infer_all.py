@@ -1,9 +1,9 @@
 import pandas as pd
-
+from typing import Any
 from datatype.utils.inference import DataFrameToInfer
 
 
-def infer_all(csv_file:str) -> dict[str,dict[str,str]]:
+def infer_all(csv_file:str) -> dict[str,Any]:
     df = pd.read_csv(csv_file)
     df_to_be_inferred = DataFrameToInfer(df)
 
@@ -11,10 +11,13 @@ def infer_all(csv_file:str) -> dict[str,dict[str,str]]:
         infer_datetime().infer_category().infer_bool()
 
     # applying formatting so that it prints dtype
+    # original_data = df.to_js
     original_data_types = df.dtypes.apply(lambda x:x.name).to_dict()
     inferred_data_types = df_inferred.dtypes.apply(lambda x: x.name).to_dict()
 
     return {
-        "original": original_data_types,
-        "inferred": inferred_data_types
+        "original_data_json": df.to_json(orient='records'),
+        "original_data_types": original_data_types,
+        "inferred_data_json": df_inferred.to_json(orient='records'),
+        "inferred_data_types": inferred_data_types
     }
