@@ -2,9 +2,7 @@ import pandas as pd
 
 from dateutil import parser
 
-import numpy as np
 
-# TODO: implement a class-based approach
 class DataFrameToInfer(pd.DataFrame):
     """Class inheriting from DataFrame, so that infer methods can be
     directly applied to a DataFrame, and can be chained"""
