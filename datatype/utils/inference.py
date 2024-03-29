@@ -11,7 +11,7 @@ class DataFrameToInfer(pd.DataFrame):
     def infer_numeric(self) -> "DataFrameToInfer":
         """Finds which column of the dataframe are of a numeric type. 
         The criteria for the column to be numeric is - it has
-        to have at least 80% of the entries as numeric.
+        to have at least 50% of the entries as numeric.
         """
         # to prevent changing the original dataframe
         df: pd.DataFrame = self.copy()
@@ -21,9 +21,9 @@ class DataFrameToInfer(pd.DataFrame):
             df_converted:pd.Series = pd.to_numeric(df[col], errors='coerce')
             len_df_converted_none: int = len(df_converted[df_converted.isna()])
 
-            # checking whether the number of nan rows are less than 20% 
-            # (thus >80% non-nan rows)
-            if len_df_converted_none <= 0.2 * len_df:
+            # checking whether the number of nan rows are less than 50% 
+            # (thus simple majority of the rows)
+            if len_df_converted_none <= 0.5 * len_df:
                 df[col] = df_converted
 
         return DataFrameToInfer(df)
