@@ -12,7 +12,13 @@ To set up the API server, you first need to install Python 3.11. Then:
 ```  
 If you do not have git installed, then click on "Code", and click "Download ZIP". Download it in the same directory as the virtual environment folder, and extract the ZIP file.
 
-3. Go to the project root, and start a terminal/command prompt session. If you are on Linux/Mac, run:   
+3. Go to the project root, and install all the dependencies by running:
+
+```
+    pip install -r requirements.txt
+```
+
+4. Go to the project root, and start a terminal/command prompt session. If you are on Linux/Mac, run:   
 ```
     python3 manage.py runserver
 ```   
