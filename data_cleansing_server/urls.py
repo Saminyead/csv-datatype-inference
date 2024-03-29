@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from django.urls.resolvers import URLResolver, URLPattern
 
-DATATYPE_ENDPOINT:str = 'datatype/'
+DATATYPE_ENDPOINT:str = 'api/'
 
 urlpatterns: list[URLPattern|URLResolver] = [
     path('admin/', admin.site.urls),

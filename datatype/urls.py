@@ -3,7 +3,7 @@ from .views import csv_file_upload
 
 from django.urls.resolvers import URLPattern
 
-INFER_ENDPOINT:str = ''
+INFER_ENDPOINT:str = 'datatype/'
 
 urlpatterns: list[URLPattern] = [
     path(INFER_ENDPOINT,view=csv_file_upload,name='file_upload')
