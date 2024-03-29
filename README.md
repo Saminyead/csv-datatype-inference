@@ -77,4 +77,10 @@ with open('inferred_datatypes.json', 'w') as outfile:
     json.dump(inferred_data_types, outfile)
 ```   
 
+To get a video description of how to set the API server up and use it, please visit 
 
+## Some Caveats
+* The inference algorithm infers the column data types on the predominant data type of the column. For example, if most of the column is numeric, and a small portion of them are string values (e.g. some of the values are like "not available"), the column will be inferred as a numeric type.
+* The algorithm can infer almost any datetime formats, but by default it will infer the first part  of a year-month-day (or any permutation of the format) to be the year, the next part to be the month, then the day. In other words, it will by default, consider the month to be written before the day. For example, if the date is written like - 05/07/1995, the algorithm will consider '05' to be the month, and '07' to be the year. However, for dates written like 13/07/1995, since '13', cannot be a month, it will infer it to be the date, and '07' to be the month. 
+* The algorithm utilizes Pandas to infer columns. And the backend for Pandas is the numpy library. Currently, missing values (written as Nan) can only be assigned the float type. So, a column of integers with missing values, are inferred to be the of data type float.
+* Currently, pandas does not support boolean columns with missing values. So, any column with missing values are considered to be strings or floats(if the values are all 1's and 0's).
